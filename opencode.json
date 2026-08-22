@@ -1,6 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+  "small_model": "openrouter/deepseek-v4-flash-none",
   "provider": {
     "openrouter": {
       "models": {
@@ -14,8 +15,35 @@
               "allow_fallbacks": true,
               "zdr": true
             }
-          },
-          "variants": { "low": { "reasoning": { "effort": "low" } } }
+          }
+        },
+
+        "deepseek-v4-flash-low": {
+          "id": "deepseek/deepseek-v4-flash-0731",
+          "name": "DeepSeek V4 Flash (low)",
+          "options": {
+            "reasoning": { "effort": "low" },
+            "provider": {
+              "order": ["deepinfra", "fireworks"],
+              "only": ["deepinfra", "fireworks"],
+              "allow_fallbacks": true,
+              "zdr": true
+            }
+          }
+        },
+
+        "deepseek-v4-flash-none": {
+          "id": "deepseek/deepseek-v4-flash-0731",
+          "name": "DeepSeek V4 Flash (none)",
+          "options": {
+            "reasoning": { "effort": "none" },
+            "provider": {
+              "order": ["deepinfra", "fireworks"],
+              "only": ["deepinfra", "fireworks"],
+              "allow_fallbacks": true,
+              "zdr": true
+            }
+          }
         },
 
         "z-ai/glm-5.2": {
@@ -75,10 +103,18 @@
     "general": {
       "model": "openrouter/deepseek/deepseek-v4-flash-0731"
     },
+    "title": {
+      "model": "openrouter/deepseek-v4-flash-none"
+    },
+    "summary": {
+      "model": "openrouter/deepseek-v4-flash-none"
+    },
+    "compaction": {
+      "model": "openrouter/deepseek-v4-flash-none"
+    },
     "explorer": {
       "mode": "subagent",
-      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
-      "variant": "low",
+      "model": "openrouter/deepseek-v4-flash-low",
       "permission": {
         "*": "deny",
         "read": "allow",
@@ -356,5 +392,6 @@
   },
   "subagent_depth": 2,
   "lsp": true,
+  "enabled_providers": ["openrouter"],
   "disabled_providers": ["openai", "anthropic", "google"]
 }
