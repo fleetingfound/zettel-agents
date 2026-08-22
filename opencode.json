@@ -1,0 +1,360 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+  "provider": {
+    "openrouter": {
+      "models": {
+
+        "deepseek/deepseek-v4-flash-0731": {
+          "options": {
+            "reasoning": { "effort": "max" },
+            "provider": {
+              "order": ["deepinfra", "fireworks"],
+              "only": ["deepinfra", "fireworks"],
+              "allow_fallbacks": true,
+              "zdr": true
+            }
+          },
+          "variants": { "low": { "reasoning": { "effort": "low" } } }
+        },
+
+        "z-ai/glm-5.2": {
+          "options": {
+            "reasoning": { "effort": "high" },
+            "provider": {
+              "order": ["novita", "fireworks"],
+              "only": ["novita", "fireworks"],
+              "allow_fallbacks": true,
+              "quantizations": ["fp8"],
+              "zdr": true
+            }
+          }
+        },
+
+        "moonshotai/kimi-k3": {
+          "options": {
+            "reasoning": { "effort": "max" },
+            "provider": {
+              "order": ["fireworks"],
+              "only": ["fireworks"],
+              "allow_fallbacks": false,
+              "zdr": true
+            }
+          }
+        }
+
+      }
+    }
+  },
+  "permission": {
+    "*": "allow",
+    "read": {
+      "*.env": "ask",
+      "*.env.*": "ask",
+      "*.env.example": "allow"
+    },
+    "edit": {
+      ".opencode/*": "deny",
+      "SPEC*.md": "deny",
+      "AGENTS.md": "deny",
+      ".llm/ref/*": "deny",
+      ".llm/user/prompts/*": "deny"
+    }
+  },
+  "default_agent": "planner",
+  "agent": {
+    "plan": {
+      "disable": true
+    },
+    "build": {
+      "disable": true
+    },
+    "explore": {
+      "disable": true
+    },
+    "general": {
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731"
+    },
+    "explorer": {
+      "mode": "subagent",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "variant": "low",
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "external_directory": "allow"
+      }
+    },
+    "builder": {
+      "description": "Build, constrained by SPEC",
+      "mode": "primary",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731"
+    },
+    "reviewer": {
+      "description": "Review project",
+      "mode": "primary",
+      "model": "openrouter/z-ai/glm-5.2"
+    },
+    "maker": {
+      "description": "Implementation subagent",
+      "mode": "subagent",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "maker.heavy": {
+      "description": "Implementation subagent (larger model)",
+      "mode": "subagent",
+      "model": "openrouter/z-ai/glm-5.2",
+      "permission": {
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "mapper": {
+      "description": "Maps core files in the repository",
+      "mode": "primary",
+      "hidden": true,
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "MAP.gen.md": "allow"
+        },
+        "bash": "allow"
+      }
+    },
+    "harnesser": {
+      "description": "Implement test harness",
+      "mode": "primary",
+      "hidden": true,
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "Makefile": "allow",
+          "*.mk": "allow",
+          "test/*": "allow",
+          ".llm/gen/*": "allow",
+          "MAP.gen.md": "allow"
+        },
+        "bash": "allow"
+      }
+    },
+    "committer": {
+      "description": "Commit working tree changes",
+      "mode": "primary",
+      "hidden": true,
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "bash": {
+          "*": "deny",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git add*": "allow",
+          "git commit*": "allow",
+          "git log*": "allow"
+        }
+      }
+    },
+    "orchestrator": {
+      "description": "Orchestrate codebase edits",
+      "mode": "primary",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "*": "deny",
+        "read": {
+          "*": "deny",
+          ".llm/gen/plans/INDEX.gen.md": "allow",
+          ".llm/gen/runs/*": "allow"
+        },
+        "bash": {
+          "*": "deny",
+          "git status --porcelain --ignore-submodules=all": "allow",
+          "git log -1 --format=%H -- .llm/gen/runs/": "allow",
+          "git show --format= --unified=0 HEAD -- test/": "allow"
+        },
+        "task": {
+          "*": "deny",
+          "mediator": "allow",
+          "pinner": "allow",
+          "pinner.heavy": "allow",
+          "puzzler": "allow",
+          "puzzler.heavy": "allow",
+          "solver": "allow",
+          "solver.heavy": "allow",
+          "maker": "allow",
+          "maker.heavy": "allow"
+        }
+      }
+    },
+    "planner": {
+      "description": "Plan development",
+      "mode": "primary",
+      "model": "openrouter/z-ai/glm-5.2",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "SPEC.gen.md": "allow",
+          ".llm/gen/*": "allow"
+        }
+      }
+    },
+    "pinner": {
+      "description": "Implement passing tests",
+      "mode": "subagent",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "*.mk": "allow",
+          "test/*": "allow",
+          ".llm/gen/*": "allow",
+          "MAP.gen.md": "allow"
+        },
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "pinner.heavy": {
+      "description": "Implement passing tests",
+      "mode": "subagent",
+      "model": "openrouter/z-ai/glm-5.2",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "*.mk": "allow",
+          "test/*": "allow",
+          ".llm/gen/*": "allow",
+          "MAP.gen.md": "allow"
+        },
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "puzzler": {
+      "description": "Implement failing tests",
+      "mode": "subagent",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "*.mk": "allow",
+          "test/*": "allow",
+          ".llm/gen/*": "allow",
+          "MAP.gen.md": "allow"
+        },
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "puzzler.heavy": {
+      "description": "Implement failing tests",
+      "mode": "subagent",
+      "model": "openrouter/z-ai/glm-5.2",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "*.mk": "allow",
+          "test/*": "allow",
+          ".llm/gen/*": "allow",
+          "MAP.gen.md": "allow"
+        },
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "solver": {
+      "description": "Implement plans or instructions, constrained by SPEC",
+      "mode": "subagent",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "edit": {
+          "test/*": "deny"
+        },
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "solver.heavy": {
+      "description": "Implement plans or instructions, constrained by SPEC (larger model)",
+      "mode": "subagent",
+      "model": "openrouter/z-ai/glm-5.2",
+      "permission": {
+        "edit": {
+          "test/*": "deny"
+        },
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "mediator": {
+      "description": "Resolve disputed tests",
+      "mode": "subagent",
+      "model": "openrouter/z-ai/glm-5.2",
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "test/*": "allow",
+          "Makefile": "allow",
+          "*.mk": "allow",
+          ".llm/gen/issues/*": "allow",
+          ".llm/gen/verdicts/*": "allow",
+          ".llm/gen/disputes/INDEX.gen.md": "allow",
+          "MAP.gen.md": "allow"
+        },
+        "bash": "allow",
+        "task": {
+          "*": "deny",
+          "explorer": "allow"
+        }
+      }
+    },
+    "meta": {
+      "description": "Query conversation only",
+      "mode": "primary",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "*": "deny"
+      }
+    },
+    "query": {
+      "description": "Query project",
+      "mode": "primary",
+      "model": "openrouter/deepseek/deepseek-v4-flash-0731",
+      "permission": {
+        "edit": {
+          "*": "deny"
+        },
+        "bash": "deny"
+      }
+    }
+  },
+  "subagent_depth": 2,
+  "lsp": true,
+  "disabled_providers": ["openai", "anthropic", "google"]
+}

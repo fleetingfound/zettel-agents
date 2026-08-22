@@ -1,0 +1,3 @@
+[submodule ".llm/ref/opencode.source"]
+	path = .llm/ref/opencode.source
+	url = https://github.com/anomalyco/opencode
