@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+init_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source_dir="start"
+
+if [ "$#" -gt 0 ]; then
+  target="$1"
+else
+  parent="$(cd "$init_dir/.." && pwd)"
+  target="$(git -C "$parent" rev-parse --show-toplevel 2>/dev/null || true)"
+  if [ -z "$target" ]; then
+    echo "No parent git repository found" >&2
+    exit 1
+  fi
+fi
+
+shopt -s dotglob
+cp -r -- "$init_dir"/"$source_dir"/* "$target/"
+echo "Initialized OpenCode config."
