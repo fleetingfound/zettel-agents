@@ -23,7 +23,7 @@ git clone https://github.com/fleetingfound/zettel-agents.git ~/.config/opencode/
 
 1. Create `SPEC.md` describing all core specifications in the project root. This file may be modified during development. It should never be contradicted by the agents.
 
-2. Run `init` from the project root to initialize the files `Makefile`, `.coreignore` and `AGENTS.md` in the project root.
+2. Run `init .` from the project root to initialize the files `Makefile`, `.coreignore` and `AGENTS.md` in the project root.
 
 3. Then run `opencode` from the project root `<project>/`.
 
@@ -38,7 +38,6 @@ Within OpenCode:
 6.  Run `/flow` to execute the unimplemented plan documents sequentially, with the work of each subagent being verified against simple (and partial) checks. Each subagent will generate its own commit.
 
 7.  As needed, query the `reviewer` agent to generate reviews of the project in `.llm/gen/reviews/`. Commit with `/commit`.
-
     - The `reviewer` agent may be invoked with `/critique` to provide a general critique of the implementation.
 
 8.  As needed, query the `planner` agent to generate further plans. Commit plans with `/commit` and run `/flow` to implement plans.
@@ -63,6 +62,8 @@ Generated artifacts are saved in the following subfolders:
 - `.llm/gen/disputes/` - Tests disputed by the `@solver` agent
 - `.llm/gen/verdicts/` - Verdicts on disputed tests, according to the `@mediator` subagent
 - `.llm/gen/reviews/` - Implementation reviews
+
+Use `.llm/ref/` to save items which agents can refer to but may not edit, such as code examples and documentation for software tools.
 
 ## todo
 
