@@ -87,7 +87,9 @@ A plan document's flow tag indicates how its implementation is delegated to suba
 - Plans which do not introduce testable behaviour or where it is necessary to edit tests alongside the remainder of the implementation may use `#flow/unified`, where:
   - the entire plan is implemented by a single agent whose final implementation is required to pass all final tests
 
-Do not detail the tests to be implemented but provide a high-level view of which aspects of the planned implementation should be tested, including both unit and end-to-end tests.
+Avoid detailing the tests to be implemented. Instead, provide a high-level view of which aspects of the planned implementation should be tested, including both unit and end-to-end tests.
+
+However, plans tagged `#flow/pin` or `#flow/refactor` should explicitly identify any tests to be superseded and removed.
 
 Use the tag `#model/default` by default. Use the tag `#model/big` for plans where the user has explicitly requested a large model.
 

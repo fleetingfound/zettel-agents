@@ -40,7 +40,7 @@ Ultimately, your goal is to satisfy the following invariant. The invariant holds
 
   **CASE_1:** The final version of the implemented changes to the core files has been observed to pass all unit tests and end-to-end tests called by `make test-unit` and `make test-e2e`.
 
-  **CASE_2:** Tests have been identified where there is an error in their implementation or the tests are inconsistent with at least one of `SPEC.md`, `SPEC.gen.md` or the provided plan document. A dispute document has been created in `.llm/gen/disputes/` describing all such tests. For each such disputed test, include the test name, the path of the file which defines the test, the exact failure output, the paths of related core files, and justification for why the test is being disputed. 
+  **CASE_2:** Tests have been identified where there is an error in their implementation or the tests are inconsistent with at least one of `SPEC.md`, `SPEC.gen.md` or the provided plan document. A dispute document has been created in `.llm/gen/disputes/` which references the plan document and describes all such tests. For each such disputed test, include the test name, the path of the file which defines the test, the exact failure output, the paths of related core files, and justification for why the test is being disputed. 
 
 ## post-processing steps
 

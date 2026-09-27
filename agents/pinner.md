@@ -32,10 +32,11 @@ Ultimately, your goal is to satisfy the following invariant. The invariant holds
 **INVARIANT (definition)**:
 
 - New tests have been written as outlined in the plan document for key testable behaviour of the project as already implemented. Key behaviour should include behaviour outlined by the plan document and the aspects of `SPEC.md` and `SPEC.gen.md` which relate directly to the features the plan document calls for.
-- Previously existing tests have been edited or removed if and only if they fail on the existing project implementation.
+- Previously existing tests have been edited or removed only if they fail on the existing project implementation or the plan document identifies them as superseded.
+- Tests which the plan document identifies as superseded have been removed.
 - All tests pass when the commands `make test-unit` and `make test-e2e` are run, since they are intended to capture the current implementation.
 - No core files have been edited except the test suite (in `test/`).
-- A test document has been created in `.llm/gen/tests/` which provides a concise overview of the implemented tests. The test document should include separate sections for the new tests implemented, tests and tests removed. Every edited or removed test requires description of how it fails against the project implementation. The provided plan document and any new issue document should be linked from the test document and summarized in a single sentence, rather than repeating their content.
+- A test document has been created in `.llm/gen/tests/` which provides a concise overview of the implemented tests. The test document should include separate sections for the new tests implemented, tests edited, and tests removed. Every edited or removed test requires description of how it fails against the project implementation or a reference to how the plan document identifies it as superseded. The provided plan document and any new issue document should be linked from the test document and summarized in a single sentence, rather than repeating their content.
 
 ## post-processing steps
 
