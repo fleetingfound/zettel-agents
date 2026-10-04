@@ -40,26 +40,24 @@ Ultimately, your goal is to satisfy the following invariant. The invariant holds
 
   **CASE_1:** The final version of the implemented changes to the core files has been observed to pass all unit tests and end-to-end tests called by `make test-unit` and `make test-e2e`.
 
-  **CASE_2:** Tests have been identified where there is an error in their implementation or the tests are inconsistent with at least one of `SPEC.md`, `SPEC.gen.md` or the provided plan document. A dispute document has been created in `.llm/gen/disputes/` which references the plan document and describes all such tests. For each such disputed test, include the test name, the path of the file which defines the test, the exact failure output, the paths of related core files, and justification for why the test is being disputed. 
+  **CASE_2:** Tests or test helpers have been identified where there is an error in their implementation or they are inconsistent with at least one of `SPEC.md`, `SPEC.gen.md` or the provided plan document. A dispute document has been created in .llm/gen/disputes/ which references the plan document and describes all disputed tests and test helpers. For each disputed test or helper, include its name, the path of the file which defines it, the exact failure output, the paths of related core files, and justification for why it is being disputed.
 
 ## post-processing steps
 
 If all of the conditions of **INVARIANT** are satisfied, then do the following in order:
 
-1. For any issue discovered in the implementation of the core files which is not captured by the dispute document (intended only for individually misspecified tests) and which was not resolved, create an issue document in `.llm/gen/issues/`. This document should describe the issue as concisely as possible and link to any core files causing the issue. Each new issue document should be indexed in `.llm/gen/issues/INDEX.gen.md` as the last item in a markdown task list with a bullet of the form `- [ ]`. Do not create issue documents for issues which were both identified and resolved during implementation of the plan document.
+1. For any issue discovered in the implementation of the core files which is not captured by the dispute document (intended only for misspecified tests and test helpers) and which was not resolved, create an issue document in `.llm/gen/issues/`. This document should describe the issue as concisely as possible and link to any core files causing the issue. Each new issue document should be indexed in `.llm/gen/issues/INDEX.gen.md` as the last item in a markdown task list with a bullet of the form `- [ ]`. Do not create issue documents for issues which were both identified and resolved during implementation of the plan document.
 2. For any previously existing issue document which was read and also resolved during implementation of the plan document, mark the issue document as complete in `.llm/gen/issues/INDEX.gen.md` by replacing the bullet `- [ ]` of the corresponding item with `- [x]`.
 3. If **CASE_1** holds, ensure that the corresponding plan document is marked as complete in `.llm/gen/plans/INDEX.gen.md` by replacing the bullet `- [ ]` of the corresponding item with `- [x]`.
 4. If **CASE_2** holds, add a link to the dispute document at the end of a markdown task list in `.llm/gen/disputes/INDEX.gen.md` with a bullet of the form `- [ ]`.
 5. Create a build document in `.llm/gen/builds/` which provides a concise overview of the implemented changes. The build document should include the status `SUCCESS` if **CASE_1** holds or the status `BLOCKED` if **CASE_2** holds. The provided plan document, any provided verdict document, any new dispute document and any new issue document should be linked from the build document and summarized in a single sentence, rather than repeating their content. Add a link to the new build document as the last item in a markdown list in `.llm/gen/builds/INDEX.gen.md`.
 6. Then commit all uncommitted changes in the working tree with a single-line commit message.
 7. Report one of the following:
-
    - `SUCCESS`, if **INVARIANT** and **CASE_1** were satisfied
    - `BLOCKED`, if **INVARIANT** and **CASE_2** were satisfied
    - `FAILURE`, if **INVARIANT** was not satisfied
 
    Also report:
-
    - the commit message and hash for the commit which you created, if a commit was made
    - the path of the new build document
    - the path of the new dispute document, if one was created
