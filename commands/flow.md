@@ -35,22 +35,18 @@ Apply the following instructions to each of the plan documents, handling one pla
 If in `.llm/gen/plans/INDEX.gen.md` the plan document is tagged `#model/default` or does not have a `#model` tag, do the following:
 
 - If the plan document is tagged `#flow/redgreen` in `.llm/gen/plans/INDEX.gen.md`:
-
   1. First, pass the path of the plan document to `@puzzler`.
   2. Second, pass the path of the plan document to `@solver`.
 
 - If the plan document is tagged `#flow/pin`:
-
   1. Pass the path of the plan document to `@pinner`.
 
 - If the plan document is tagged `#flow/refactor`:
-
   1. First, pass the path of the plan document to `@pinner`.
 
   2. Second, pass the path of the plan document to `@solver`.
 
 - If the plan document is tagged `#flow/unified` in `.llm/gen/plans/INDEX.gen.md` or if the plan document does not have a `#flow` tag:
-
   1. Pass the path of the plan document to `@maker`.
 
 If the plan document is instead tagged `#model/big` in `.llm/gen/plans/INDEX.gen.md`, then follow the instructions above, but use:
@@ -66,7 +62,6 @@ After completing a call to any subagent except `@mediator`, `@maker` and `@maker
 
 1. Run `git status --porcelain --ignore-submodules=all`. If this command reveals that there are untracked files or files in the working tree with uncommitted changes, report the discrepancy and do nothing else.
 2. If the subagent reports `BLOCKED`, then perform the following substeps:
-
    - If the subagent was not `@solver` or `@solver.heavy`, or it did not return the path of a dispute document in `.llm/gen/disputes/`, report the discrepancy and do nothing else.
    - Otherwise, pass the path of the dispute document to `@mediator`.
    - If `@mediator` does not report `SUCCESS` together with the path of a verdict document in `.llm/gen/verdicts/`, or `git status --porcelain --ignore-submodules=all` reveals that there are untracked files or files with uncommitted changes after completing the call to `@mediator`, report the discrepancy and do nothing else.
@@ -75,17 +70,15 @@ After completing a call to any subagent except `@mediator`, `@maker` and `@maker
    - Once that subagent call completes, repeat the verification steps from step 1.
 
 3. If the subagent does not report `BLOCKED`, then perform the following substeps:
-
    - Run `git log -1 --format=%H -- .llm/gen/runs/` to determine the last committed change to `.llm/gen/runs/`.
    - If the subagent was `@puzzler` or `@puzzler.heavy`, then also run `git show --format= --unified=0 HEAD -- test/` to determine which tests the latest commit added or edited.
    - Ensure that the following invariant holds with respect to the last called subagent:
 
      **INVARIANT** (definition):
-
      - The subagent reports `SUCCESS`.
      - There are no untracked files and no uncommitted changes in the working tree, as indicated by `git status --porcelain --ignore-submodules=all`.
      - Unless the subagent was `@maker` or `@maker.heavy`, the subagent produced a git commit which included a change to `.llm/gen/runs/`, as indicated by a change in the output of `git log -1 --format=%H -- .llm/gen/runs/` since the last time it was called.
-     - If the subagent was `@puzzler` or `@puzzler.heavy`, then the field `fail:` in `.llm/gen/runs/test-unit.gen.yaml` or `.llm/gen/runs/test-e2e.gen.yaml` is a non-empty list. In both `.llm/gen/runs/test-unit.gen.yaml` and `.llm/gen/runs/test-e2e.gen.yaml`, all entries of `fail:` are tests which were added or edited by the latest commit.
+     - If the subagent was `@puzzler` or `@puzzler.heavy`, then the field `fail:` in `.llm/gen/runs/test-unit.gen.yaml` or `.llm/gen/runs/test-e2e.gen.yaml` is a non-empty list. In both `.llm/gen/runs/test-unit.gen.yaml` and `.llm/gen/runs/test-e2e.gen.yaml`, all entries of `fail:` are tests which were added or edited by the latest commit. Every test which was added appears as an entry of `fail:`. Neither `.llm/gen/runs/test-unit.gen.yaml` nor `.llm/gen/runs/test-e2e.gen.yaml` has `exit: timeout`.
      - If the subagent was not `@puzzler`, `@puzzler.heavy`, `@maker` or `@maker.heavy`, then no entries appear under `fail:` in either of `.llm/gen/runs/test-unit.gen.yaml` or `.llm/gen/runs/test-e2e.gen.yaml`.
 
      Only proceed to the next subagent call if every condition of **INVARIANT** is satisfied. Otherwise, report the discrepancy and do nothing else.

@@ -69,8 +69,7 @@ Ultimately, your goal is to satisfy the following invariant. The invariant holds
   - a justification for the verdict with direct excerpts from `SPEC.md`, `SPEC.gen.md` or the plan document
   - a description of any repair or removal of the test
 
-  Document each disputed test helper similarly.
-  The provided plan document and any new issue document should be linked from the verdict document and summarized in a single sentence, rather than repeating their content. Add a link to the new verdict document as the last item in a markdown list in `.llm/gen/verdicts/INDEX.gen.md`.
+  Document each disputed test helper similarly. The provided plan document and any new issue document should be linked from the verdict document and summarized in a single sentence, rather than repeating their content. Add a link to the new verdict document as the last item in a markdown list in `.llm/gen/verdicts/INDEX.gen.md`.
 
 - The dispute document's entry in `.llm/gen/disputes/INDEX.gen.md` has been marked as complete by replacing `- [ ]` with `- [x]`.
 
