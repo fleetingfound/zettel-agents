@@ -18,6 +18,8 @@ Whenever a core file (not matched by `.gitignore` or `.coreignore`) is created, 
 
 The contents of the dispute document are claims rather than evidence. Since its claims may be correct or incorrect, the dispute document should be viewed through a critical lens. All of its claims should be validated independently.
 
+The commands `make test-unit` and `make test-e2e` should only be run in the foreground with `timeout` set to 0 since the test harness enforces its own timeouts. Never set `background: true`, append `&` or use `nohup` for these commands.
+
 ## preliminaries
 
 Before proceeding to satisfy the invariant, read:

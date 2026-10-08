@@ -18,6 +18,8 @@ When performing a search for information across this repository, delegate the se
 
 Whenever a core file (not matched by `.gitignore` or `.coreignore`) is created, add it to `MAP.gen.md`. If a core file is deleted, remove it from `MAP.gen.md`.
 
+The commands `make test-unit` and `make test-e2e` should only be run in the foreground with `timeout` set to 0 since the test harness enforces its own timeouts. Never set `background: true`, append `&` or use `nohup` for these commands.
+
 ## preliminaries
 
 Before proceeding to satisfy the invariant, read:
