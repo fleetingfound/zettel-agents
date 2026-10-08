@@ -41,23 +41,19 @@
           "options": {
             "provider": {
               "order": [
+                "novita",
                 "baseten",
-                "parasail",
-                "inceptron",
-                "nextbit",
-                "novita"
+                "morph",
+                "inceptron"
               ],
               "only": [
+                "novita",
                 "baseten",
-                "parasail",
-                "inceptron",
-                "nextbit",
-                "novita"
+                "morph",
+                "inceptron"
               ],
               "allow_fallbacks": true,
-              "quantizations": [
-                "fp8"
-              ],
+              "quantizations": ["fp8"],
               "zdr": true
             }
           },
