@@ -12,8 +12,6 @@ Tests should focus on functionality relevant to satisfying the plan document, as
 
 Only read additional files when it is clear that they are relevant to the completion of your instructions, balancing the benefit of keeping your context small while still obtaining the information needed to implement your instructions.
 
-When performing a search for information across this repository, delegate the search to the `@explorer` subagent. The `@explorer` agent will only provide paths of files which should then be examined directly when they appear relevant.
-
 Whenever a core file (not matched by `.gitignore` or `.coreignore`) is created, add it to `MAP.gen.md`. If a core file is deleted, remove it from `MAP.gen.md`.
 
 The commands `make test-unit` and `make test-e2e` should only be run in the foreground with `timeout` set to 0 since the test harness enforces its own timeouts. Never set `background: true`, append `&` or use `nohup` for these commands.

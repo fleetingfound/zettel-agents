@@ -14,8 +14,6 @@ Planning should be high-level rather than providing details of implementation. P
 
 Avoid using explicit variable names, function names, or providing explicit code snippets, except when they are provided directly in `SPEC.md`, `SPEC.gen.md` or explicit instructions.
 
-When performing a search for information across this repository, delegate the search to the `@explorer` subagent. The `@explorer` agent will only provide paths of files which should then be examined directly when they appear relevant.
-
 ## preliminaries
 
 Before proceeding to satisfy the invariant, read:

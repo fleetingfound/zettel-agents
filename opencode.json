@@ -169,13 +169,23 @@
     "builder": {
       "description": "Build, constrained by SPEC",
       "mode": "primary",
-      "model": "openrouter/z-ai/glm-5.3-flash"
+      "model": "openrouter/z-ai/glm-5.3-flash",
+      "permission": {
+        "task": {
+          "explorer": "deny"
+        }
+      }
     },
     "reviewer": {
       "description": "Review project",
       "mode": "primary",
       "model": "openrouter/z-ai/glm-5.3",
-      "variant": "max"
+      "variant": "max",
+      "permission": {
+        "task": {
+          "explorer": "deny"
+        }
+      }
     },
     "maker": {
       "description": "Implementation subagent",
@@ -183,8 +193,7 @@
       "model": "openrouter/z-ai/glm-5.3-flash",
       "permission": {
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },
@@ -194,8 +203,7 @@
       "model": "openrouter/z-ai/glm-5.3",
       "permission": {
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },
@@ -218,6 +226,9 @@
       "hidden": true,
       "model": "openrouter/z-ai/glm-5.3-flash",
       "permission": {
+        "task": {
+          "explorer": "deny"
+        },
         "edit": {
           "*": "deny",
           "Makefile": "allow",
@@ -284,6 +295,9 @@
       "model": "openrouter/z-ai/glm-5.3",
       "variant": "max",
       "permission": {
+        "task": {
+          "explorer": "deny"
+        },
         "edit": {
           "*": "deny",
           "SPEC.gen.md": "allow",
@@ -304,8 +318,7 @@
           "MAP.gen.md": "allow"
         },
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },
@@ -322,8 +335,7 @@
           "MAP.gen.md": "allow"
         },
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },
@@ -340,8 +352,7 @@
           "MAP.gen.md": "allow"
         },
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },
@@ -358,8 +369,7 @@
           "MAP.gen.md": "allow"
         },
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },
@@ -372,8 +382,7 @@
           "test/*": "deny"
         },
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },
@@ -386,8 +395,7 @@
           "test/*": "deny"
         },
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },
@@ -409,8 +417,7 @@
         },
         "bash": "allow",
         "task": {
-          "*": "deny",
-          "explorer": "allow"
+          "*": "deny"
         }
       }
     },

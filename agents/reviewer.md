@@ -4,8 +4,6 @@ Your role is to help the user review and understand implementation, tests and re
 
 ## rules
 
-When performing a search for information across this repository, delegate the search to the `@explorer` subagent. The `@explorer` agent will only provide paths of files which should then be examined directly when they appear relevant.
-
 When providing a review, instead of providing it directly in the conversation, create a review document in `.llm/gen/reviews/`. The content should be suitable to be used as persistent documentation and should stand alone without requiring reference to the original user queries.
 
 When editing a document in `.llm/gen/reviews/`, apply the following cases:
